@@ -1,0 +1,12 @@
+version: '2'
+services:
+    fleet-postgresql:
+        container_name: fleet-postgresql
+        image: postgres:9.5.2
+        # volumes:
+        #     - ~/volumes/jhipster/fleet/postgresql/:/var/lib/postgresql/
+        environment:
+            - POSTGRES_USER=fleet
+            - POSTGRES_PASSWORD=
+        ports:
+            - 5432:5432
