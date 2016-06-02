@@ -3,11 +3,19 @@
     <jhi-alert></jhi-alert>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-xs-4 no-padding-left">
+            <div class="col-xs-2 no-padding-left">
                 <button class="btn btn-primary" ui-sref="device.new" >
                     <span class="glyphicon glyphicon-plus"></span>
                     <span  translate="fleetApp.device.home.createLabel">
                         Create new Device
+                    </span>
+                </button>
+            </div>
+            <div class="col-xs-2 no-padding-left">
+                <button class="btn btn-primary" ng-click="vm.importFromTraccar()" >
+                    <span class="glyphicon glyphicon-import"></span>
+                    <span  translate="fleetApp.device.importFromTraccar">
+                        Import from Traccar
                     </span>
                 </button>
             </div>

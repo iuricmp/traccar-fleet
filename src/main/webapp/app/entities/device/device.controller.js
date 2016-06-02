@@ -9,7 +9,7 @@
 
     function DeviceController ($scope, $state, Device, ParseLinks, AlertService, pagingParams, paginationConstants) {
         var vm = this;
-        
+
         vm.loadPage = loadPage;
         vm.predicate = pagingParams.predicate;
         vm.reverse = pagingParams.ascending;
@@ -46,6 +46,10 @@
             vm.page = page;
             vm.transition();
         }
+
+        vm.importFromTraccar = function() {
+            Device.importFromTraccar();
+        };
 
         function transition () {
             $state.transitionTo($state.$current, {

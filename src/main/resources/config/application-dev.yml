@@ -90,4 +90,6 @@ jhipster:
         enabled: true
 
 traccar:
-    url: www.traccar.org
+    url: www.yourTraccar.com:8082
+    username: traccarLogin
+    password: traccarPassword

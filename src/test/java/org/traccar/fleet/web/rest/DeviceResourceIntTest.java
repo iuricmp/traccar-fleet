@@ -1,6 +1,7 @@
 package org.traccar.fleet.web.rest;
 
 import org.traccar.fleet.FleetApp;
+import org.traccar.fleet.domain.Company;
 import org.traccar.fleet.domain.Device;
 import org.traccar.fleet.repository.DeviceRepository;
 import org.traccar.fleet.service.DeviceService;
@@ -46,7 +47,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringApplicationConfiguration(classes = FleetApp.class)
 @WebAppConfiguration
 @IntegrationTest
-public class DeviceResourceIntTest {
+public class DeviceResourceIntTest extends FleetResourceIntTest {
 
     private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").withZone(ZoneId.of("Z"));
 
@@ -60,6 +61,9 @@ public class DeviceResourceIntTest {
     private static final ZonedDateTime DEFAULT_LAST_UPDATE = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneId.systemDefault());
     private static final ZonedDateTime UPDATED_LAST_UPDATE = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
     private static final String DEFAULT_LAST_UPDATE_STR = dateTimeFormatter.format(DEFAULT_LAST_UPDATE);
+
+    private static final Long DEFAULT_TRACCAR_ID = 1L;
+    private static final Long UPDATED_TRACCAR_ID = 2L;
 
     @Inject
     private DeviceRepository deviceRepository;
@@ -80,6 +84,8 @@ public class DeviceResourceIntTest {
 
     private Device device;
 
+    private Company company;
+
     @PostConstruct
     public void setup() {
         MockitoAnnotations.initMocks(this);
@@ -98,6 +104,9 @@ public class DeviceResourceIntTest {
         device.setUniqueId(DEFAULT_UNIQUE_ID);
         device.setStatus(DEFAULT_STATUS);
         device.setLastUpdate(DEFAULT_LAST_UPDATE);
+        device.setTraccarId(DEFAULT_TRACCAR_ID);
+        company = initCompany();
+        device.setCompany(company);
     }
 
     @Test
@@ -121,6 +130,7 @@ public class DeviceResourceIntTest {
         assertThat(testDevice.getUniqueId()).isEqualTo(DEFAULT_UNIQUE_ID);
         assertThat(testDevice.getStatus()).isEqualTo(DEFAULT_STATUS);
         assertThat(testDevice.getLastUpdate()).isEqualTo(DEFAULT_LAST_UPDATE);
+        assertThat(testDevice.getTraccarId()).isEqualTo(DEFAULT_TRACCAR_ID);
     }
 
     @Test
@@ -163,6 +173,25 @@ public class DeviceResourceIntTest {
 
     @Test
     @Transactional
+    public void checkTraccarIdIsRequired() throws Exception {
+        int databaseSizeBeforeTest = deviceRepository.findAll().size();
+        // set the field null
+        device.setTraccarId(null);
+
+        // Create the Device, which fails.
+        DeviceDTO deviceDTO = deviceMapper.deviceToDeviceDTO(device);
+
+        restDeviceMockMvc.perform(post("/api/devices")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(deviceDTO)))
+                .andExpect(status().isBadRequest());
+
+        List<Device> devices = deviceRepository.findAll();
+        assertThat(devices).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllDevices() throws Exception {
         // Initialize the database
         deviceRepository.saveAndFlush(device);
@@ -175,7 +204,8 @@ public class DeviceResourceIntTest {
                 .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
                 .andExpect(jsonPath("$.[*].uniqueId").value(hasItem(DEFAULT_UNIQUE_ID.toString())))
                 .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
-                .andExpect(jsonPath("$.[*].lastUpdate").value(hasItem(DEFAULT_LAST_UPDATE_STR)));
+                .andExpect(jsonPath("$.[*].lastUpdate").value(hasItem(DEFAULT_LAST_UPDATE_STR)))
+                .andExpect(jsonPath("$.[*].traccarId").value(hasItem(DEFAULT_TRACCAR_ID.intValue())));
     }
 
     @Test
@@ -192,7 +222,8 @@ public class DeviceResourceIntTest {
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
             .andExpect(jsonPath("$.uniqueId").value(DEFAULT_UNIQUE_ID.toString()))
             .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()))
-            .andExpect(jsonPath("$.lastUpdate").value(DEFAULT_LAST_UPDATE_STR));
+            .andExpect(jsonPath("$.lastUpdate").value(DEFAULT_LAST_UPDATE_STR))
+            .andExpect(jsonPath("$.traccarId").value(DEFAULT_TRACCAR_ID.intValue()));
     }
 
     @Test
@@ -217,6 +248,8 @@ public class DeviceResourceIntTest {
         updatedDevice.setUniqueId(UPDATED_UNIQUE_ID);
         updatedDevice.setStatus(UPDATED_STATUS);
         updatedDevice.setLastUpdate(UPDATED_LAST_UPDATE);
+        updatedDevice.setTraccarId(UPDATED_TRACCAR_ID);
+        updatedDevice.setCompany(company);
         DeviceDTO deviceDTO = deviceMapper.deviceToDeviceDTO(updatedDevice);
 
         restDeviceMockMvc.perform(put("/api/devices")
@@ -232,6 +265,7 @@ public class DeviceResourceIntTest {
         assertThat(testDevice.getUniqueId()).isEqualTo(UPDATED_UNIQUE_ID);
         assertThat(testDevice.getStatus()).isEqualTo(UPDATED_STATUS);
         assertThat(testDevice.getLastUpdate()).isEqualTo(UPDATED_LAST_UPDATE);
+        assertThat(testDevice.getTraccarId()).isEqualTo(UPDATED_TRACCAR_ID);
     }
 
     @Test

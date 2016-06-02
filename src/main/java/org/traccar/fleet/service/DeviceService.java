@@ -33,7 +33,7 @@ public class DeviceService {
     private DeviceMapper deviceMapper;
 
     @Inject
-    private TraccarProperties traccarProperties;
+    private TraccarService traccarService;
 
     /**
      * Save a device.

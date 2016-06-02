@@ -22,27 +22,27 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="name" type="varchar(128)">
-                <constraints nullable="false"/>
+                <constraints nullable="false" />
             </column>
 
             <column name="unique_id" type="varchar(128)">
-                <constraints nullable="false"/>
+                <constraints nullable="false" />
             </column>
 
             <column name="status" type="varchar(128)">
-                <constraints nullable="true"/>
+                <constraints nullable="true" />
             </column>
 
             <column name="last_update" type="timestamp">
-                <constraints nullable="true"/>
+                <constraints nullable="true" />
             </column>
 
             <column name="traccar_id" type="bigint">
-                <constraints nullable="false"/>
+                <constraints nullable="false" />
             </column>
 
             <column name="company_id" type="bigint">
-                <constraints nullable="false"/>
+                <constraints nullable="false" />
             </column>
 
             <!-- jhipster-needle-liquibase-add-column - Jhipster will add columns here, do not remove-->
@@ -76,4 +76,3 @@
     </changeSet>
     -->
 </databaseChangeLog>
-

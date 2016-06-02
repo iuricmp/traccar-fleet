@@ -21,7 +21,8 @@
             "status": "Status",
             "lastUpdate": "Last Update",
             "traccarId": "Traccar Id",
-            "company": "Company"
+            "company": "Company",
+            "importFromTraccar": "Import Devices from Traccar"
         }
     }
 }
