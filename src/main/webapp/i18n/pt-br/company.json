@@ -1,0 +1,24 @@
+{
+    "fleetApp": {
+        "company" : {
+            "home": {
+                "title": "Companies",
+                "createLabel": "Criar novo Company",
+                "createOrEditLabel": "Criar ou editar Company",
+                "search": "Pesquisar por Company"
+            },
+            "created": "Um novo Company é criado com o identificador {{ param }}",
+            "updated": "Um Company é atualizado com o identificador {{ param }}",
+            "deleted": "Um Company é deletado com o identificador {{ param }}",
+            "delete": {
+                "question": "Tem certeza de que deseja excluir Company {{ id }}?"
+            },
+            "detail": {
+                "title": "Company"
+            },
+            "name": "Name",
+            "domain": "Domain",
+            "activated": "Activated"
+        }
+    }
+}

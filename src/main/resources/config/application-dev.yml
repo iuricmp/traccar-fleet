@@ -14,14 +14,14 @@
 spring:
     devtools:
         restart:
-            enabled: true
+            enabled: false
         livereload:
             enabled: false # we use gulp + BrowserSync for livereload
     datasource:
         url: jdbc:postgresql://localhost:5432/fleet
         name:
-        username: fleet
-        password:
+        username: postgres
+        password: postgres
     jpa:
         database-platform: org.traccar.fleet.domain.util.FixedPostgreSQL82Dialect
         database: POSTGRESQL
@@ -88,3 +88,6 @@ jhipster:
             queueSize: 512
     swagger: # swagger is enabled. It can be disabled by pasing 'no-swagger' profile at run time as well
         enabled: true
+
+traccar:
+    url: www.traccar.org

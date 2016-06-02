@@ -1,4 +1,10 @@
-# fleet
+[![Build Status](https://drone.io/github.com/iuricmp/traccar-fleet/status.png)](https://drone.io/github.com/iuricmp/traccar-fleet/latest) [![Build Status](https://travis-ci.org/iuricmp/traccar-fleet.svg?branch=master)](https://travis-ci.org/iuricmp/traccar-fleet)
+
+# FLEET
+
+Fleet is a SaaS transportation management system integrated with [Traccar](http://traccar.org)
+**This project is under hard construction. Alfa release soon!**
+Feel free to contribute.
 
 This application was generated using JHipster, you can find documentation and help at [https://jhipster.github.io](https://jhipster.github.io).
 

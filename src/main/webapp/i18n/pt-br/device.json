@@ -1,0 +1,27 @@
+{
+    "fleetApp": {
+        "device" : {
+            "home": {
+                "title": "Devices",
+                "createLabel": "Criar novo Device",
+                "createOrEditLabel": "Criar ou editar Device",
+                "search": "Pesquisar por Device"
+            },
+            "created": "Um novo Device é criado com o identificador {{ param }}",
+            "updated": "Um Device é atualizado com o identificador {{ param }}",
+            "deleted": "Um Device é deletado com o identificador {{ param }}",
+            "delete": {
+                "question": "Tem certeza de que deseja excluir Device {{ id }}?"
+            },
+            "detail": {
+                "title": "Device"
+            },
+            "name": "Name",
+            "uniqueId": "Unique Id",
+            "status": "Status",
+            "lastUpdate": "Last Update",
+            "traccarId": "Traccar Id",
+            "company": "Company"
+        }
+    }
+}
