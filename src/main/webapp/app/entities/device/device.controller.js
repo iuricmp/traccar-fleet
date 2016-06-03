@@ -5,9 +5,9 @@
         .module('fleetApp')
         .controller('DeviceController', DeviceController);
 
-    DeviceController.$inject = ['$scope', '$state', 'Device', 'ParseLinks', 'AlertService', 'pagingParams', 'paginationConstants'];
+    DeviceController.$inject = ['$scope', '$state', 'Device', 'Traccar' 'ParseLinks', 'AlertService', 'pagingParams', 'paginationConstants'];
 
-    function DeviceController ($scope, $state, Device, ParseLinks, AlertService, pagingParams, paginationConstants) {
+    function DeviceController ($scope, $state, Device, Traccar, ParseLinks, AlertService, pagingParams, paginationConstants) {
         var vm = this;
 
         vm.loadPage = loadPage;
@@ -48,7 +48,13 @@
         }
 
         vm.importFromTraccar = function() {
-            Device.importFromTraccar();
+            Traccar.importDevices(onSuccess, onError);
+            function onSuccess(data, headers) {
+                AlertService.success(data);
+            }
+            function onError(error) {
+                AlertService.error(error.data.message);
+            }
         };
 
         function transition () {
