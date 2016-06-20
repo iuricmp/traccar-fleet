@@ -1,0 +1,25 @@
+{
+    "fleetApp": {
+        "message" : {
+            "home": {
+                "title": "Messages",
+                "createLabel": "Criar novo Message",
+                "createOrEditLabel": "Criar ou editar Message",
+                "search": "Pesquisar por Message"
+            },
+            "created": "Um novo Message é criado com o identificador {{ param }}",
+            "updated": "Um Message é atualizado com o identificador {{ param }}",
+            "deleted": "Um Message é deletado com o identificador {{ param }}",
+            "delete": {
+                "question": "Tem certeza de que deseja excluir Message {{ id }}?"
+            },
+            "detail": {
+                "title": "Message"
+            },
+            "messageTime": "Message Time",
+            "macroNumber": "Macro Number",
+            "macroText": "Macro Text",
+            "device": "Device"
+        }
+    }
+}

@@ -1,0 +1,39 @@
+{
+    "relationships": [
+        {
+            "relationshipName": "device",
+            "otherEntityName": "device",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "name"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "messageTime",
+            "fieldType": "ZonedDateTime",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "macroNumber",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "macroText",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "4000"
+        }
+    ],
+    "changelogDate": "20160620170609",
+    "dto": "mapstruct",
+    "service": "serviceClass",
+    "entityTableName": "message",
+    "pagination": "pager"
+}

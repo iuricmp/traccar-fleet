@@ -1,0 +1,68 @@
+<div>
+    <h2 translate="fleetApp.message.home.title">Messages</h2>
+    <jhi-alert></jhi-alert>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="message.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span  translate="fleetApp.message.home.createLabel">
+                        Create new Message
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
+                    <th jh-sort-by="id"><span translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="messageTime"><span translate="fleetApp.message.messageTime">Message Time</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="macroNumber"><span translate="fleetApp.message.macroNumber">Macro Number</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="macroText"><span translate="fleetApp.message.macroText">Macro Text</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="deviceName"><span translate="fleetApp.message.device">Device</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="message in vm.messages track by message.id">
+                    <td><a ui-sref="message-detail({id:message.id})">{{message.id}}</a></td>
+                    <td>{{message.messageTime | date:'medium'}}</td>
+                    <td>{{message.macroNumber}}</td>
+                    <td>{{message.macroText}}</td>
+                    <td>
+                        <a ui-sref="device-detail({id:message.deviceId})">{{message.deviceName}}</a>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="message-detail({id:message.id})"
+                                    class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-xs hidden-sm" translate="entity.action.view"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="message.edit({id:message.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-xs hidden-sm" translate="entity.action.edit"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="message.delete({id:message.id})"
+                                    class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-xs hidden-sm" translate="entity.action.delete"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="text-center">
+        <jhi-item-count page="vm.page" total="vm.queryCount" items-per-page="vm.itemsPerPage"></jhi-item-count>
+    </div>
+    <uib-pager total-items="vm.totalItems" ng-model="vm.page" ng-change="vm.transition()"></uib-pager>
+</div>

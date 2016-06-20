@@ -66,6 +66,9 @@
         <sortpom-maven-plugin.version>2.5.0</sortpom-maven-plugin.version>
         <spring-security.version>4.1.0.RELEASE</spring-security.version>
         <springfox.version>2.4.0</springfox.version>
+
+        <!--fleet-->
+        <querydsl.version>3.7.0</querydsl.version>
     </properties>
 
     <dependencies>
@@ -377,6 +380,23 @@
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-data</artifactId>
         </dependency>
+        <!-- QueryDsl -->
+        <dependency>
+            <groupId>com.mysema.querydsl</groupId>
+            <artifactId>querydsl-apt</artifactId>
+            <version>${querydsl.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.mysema.querydsl</groupId>
+            <artifactId>querydsl-core</artifactId>
+            <version>${querydsl.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.mysema.querydsl</groupId>
+            <artifactId>querydsl-jpa</artifactId>
+            <version>${querydsl.version}</version>
+        </dependency>
         <!-- jhipster-needle-maven-add-dependency -->
     </dependencies>
     <build>
@@ -587,6 +607,8 @@
                     <defaultOutputDirectory>${project.build.directory}/generated-sources</defaultOutputDirectory>
                     <processors>
                         <processor>org.mapstruct.ap.MappingProcessor</processor>
+                        <!-- gerador querydsl (classes Qxxxx) -->
+                        <processor>com.mysema.query.apt.jpa.JPAAnnotationProcessor</processor>
                     </processors>
                     <options>
                         <mapstruct.suppressGeneratorTimestamp>true</mapstruct.suppressGeneratorTimestamp>
