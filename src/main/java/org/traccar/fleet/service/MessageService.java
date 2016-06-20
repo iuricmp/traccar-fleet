@@ -1,5 +1,7 @@
 package org.traccar.fleet.service;
 
+import org.apache.commons.lang3.StringUtils;
+import org.traccar.fleet.domain.Device;
 import org.traccar.fleet.domain.Message;
 import org.traccar.fleet.repository.MessageRepository;
 import org.traccar.fleet.web.rest.dto.MessageDTO;
@@ -16,6 +18,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static org.apache.commons.lang3.StringUtils.isNotBlank;
+
 /**
  * Service Implementation for managing Message.
  */
@@ -24,22 +28,28 @@ import java.util.stream.Collectors;
 public class MessageService {
 
     private final Logger log = LoggerFactory.getLogger(MessageService.class);
-    
+
     @Inject
     private MessageRepository messageRepository;
-    
+
     @Inject
     private MessageMapper messageMapper;
-    
+    @Inject
+    private DeviceService deviceService;
+
     /**
      * Save a message.
-     * 
+     *
      * @param messageDTO the entity to save
      * @return the persisted entity
      */
     public MessageDTO save(MessageDTO messageDTO) {
         log.debug("Request to save Message : {}", messageDTO);
         Message message = messageMapper.messageDTOToMessage(messageDTO);
+        Device  device  = message.getDevice();
+        if (device.getId() == null && isNotBlank(device.getUniqueId())) {
+            message.setDevice(deviceService.findOneByUniqueId(device.getUniqueId()));
+        }
         message = messageRepository.save(message);
         MessageDTO result = messageMapper.messageToMessageDTO(message);
         return result;
@@ -47,14 +57,14 @@ public class MessageService {
 
     /**
      *  Get all the messages.
-     *  
+     *
      *  @param pageable the pagination information
      *  @return the list of entities
      */
-    @Transactional(readOnly = true) 
+    @Transactional(readOnly = true)
     public Page<Message> findAll(Pageable pageable) {
         log.debug("Request to get all Messages");
-        Page<Message> result = messageRepository.findAll(pageable); 
+        Page<Message> result = messageRepository.findAll(pageable);
         return result;
     }
 
@@ -64,7 +74,7 @@ public class MessageService {
      *  @param id the id of the entity
      *  @return the entity
      */
-    @Transactional(readOnly = true) 
+    @Transactional(readOnly = true)
     public MessageDTO findOne(Long id) {
         log.debug("Request to get Message : {}", id);
         Message message = messageRepository.findOne(id);
@@ -74,7 +84,7 @@ public class MessageService {
 
     /**
      *  Delete the  message by id.
-     *  
+     *
      *  @param id the id of the entity
      */
     public void delete(Long id) {

@@ -1,5 +1,6 @@
 package org.traccar.fleet.web.rest.mapper;
 
+import org.apache.commons.lang3.StringUtils;
 import org.traccar.fleet.domain.*;
 import org.traccar.fleet.web.rest.dto.MessageDTO;
 
@@ -14,11 +15,13 @@ public interface MessageMapper {
 
     @Mapping(source = "device.id", target = "deviceId")
     @Mapping(source = "device.name", target = "deviceName")
+    @Mapping(source = "device.uniqueId", target = "deviceUniqueId")
     MessageDTO messageToMessageDTO(Message message);
 
     List<MessageDTO> messagesToMessageDTOs(List<Message> messages);
 
-    @Mapping(source = "deviceId", target = "device")
+//    @Mapping(source = "deviceId", target = "device")
+    @Mapping(source = "deviceUniqueId", target = "device")
     Message messageDTOToMessage(MessageDTO messageDTO);
 
     List<Message> messageDTOsToMessages(List<MessageDTO> messageDTOs);
@@ -29,6 +32,15 @@ public interface MessageMapper {
         }
         Device device = new Device();
         device.setId(id);
+        return device;
+    }
+
+    default Device deviceFromUniqueId(String deviceUniqueId) {
+        if (StringUtils.isBlank(deviceUniqueId)) {
+            return null;
+        }
+        Device device = new Device();
+        device.setUniqueId(deviceUniqueId);
         return device;
     }
 }
