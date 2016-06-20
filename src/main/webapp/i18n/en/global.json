@@ -9,6 +9,7 @@
                 "main": "Entities",
                 "company": "Company",
                 "device": "Device",
+                "person": "Person",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

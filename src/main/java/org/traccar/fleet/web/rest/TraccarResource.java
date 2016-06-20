@@ -11,15 +11,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.traccar.fleet.service.TraccarService;
-import org.traccar.fleet.web.rest.dto.DeviceTraccarDTO;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import java.net.URISyntaxException;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/traccar")
-public class TraccarResource {
+public class TraccarResource extends FleetResource {
 
     private final Logger log = LoggerFactory.getLogger(TraccarResource.class);
 
@@ -28,11 +27,10 @@ public class TraccarResource {
 
     @RequestMapping(value = "/importDevices", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    @Transactional(readOnly = true)
-    public ResponseEntity<Void> importDevices() throws URISyntaxException {
+    @Transactional
+    public ResponseEntity<Void> importDevices(HttpServletRequest request) throws URISyntaxException {
         log.debug("REST request to import all Devices from Traccar");
-        List<DeviceTraccarDTO> devices = traccarService.getDevices();
-
+        traccarService.importDevices(getCompanyByDomain(request));
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

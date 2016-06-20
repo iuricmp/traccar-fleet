@@ -7,8 +7,10 @@
             "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
             "entities": {
                 "main": "Entidades",
-                "company": "Company",
-                "device": "Device",
+                "company": "Empresa",
+                "device": "Rastreador",
+                "person": "Pessoa",
+                "person": "Person",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

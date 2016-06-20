@@ -44,9 +44,13 @@ public class DeviceService {
     public DeviceDTO save(DeviceDTO deviceDTO) {
         log.debug("Request to save Device : {}", deviceDTO);
         Device device = deviceMapper.deviceDTOToDevice(deviceDTO);
-        device = deviceRepository.save(device);
+        device = save(device);
         DeviceDTO result = deviceMapper.deviceToDeviceDTO(device);
         return result;
+    }
+
+    public Device save(Device device) {
+        return deviceRepository.saveAndFlush(device);
     }
 
     /**
@@ -84,5 +88,10 @@ public class DeviceService {
     public void delete(Long id) {
         log.debug("Request to delete Device : {}", id);
         deviceRepository.delete(id);
+    }
+
+    @Transactional(readOnly = true)
+    public Device findOneByUniqueId(String uniqueId) {
+        return deviceRepository.findOneByUniqueId(uniqueId);
     }
 }

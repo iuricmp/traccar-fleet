@@ -3,24 +3,25 @@
 
     angular
         .module('fleetApp')
-        .controller('DeviceController', DeviceController);
+        .controller('PersonController', PersonController);
 
-    DeviceController.$inject = ['$scope', '$state', 'Device', 'Traccar', 'ParseLinks', 'AlertService', 'pagingParams', 'paginationConstants'];
+    PersonController.$inject = ['$scope', '$state', 'Person', 'ParseLinks', 'AlertService', 'pagingParams', 'paginationConstants'];
 
-    function DeviceController ($scope, $state, Device, Traccar, ParseLinks, AlertService, pagingParams, paginationConstants) {
+    function PersonController ($scope, $state, Person, ParseLinks, AlertService, pagingParams, paginationConstants) {
         var vm = this;
-
+        
         vm.loadPage = loadPage;
         vm.predicate = pagingParams.predicate;
         vm.reverse = pagingParams.ascending;
         vm.transition = transition;
+        vm.itemsPerPage = paginationConstants.itemsPerPage;
 
         loadAll();
 
         function loadAll () {
-            Device.query({
+            Person.query({
                 page: pagingParams.page - 1,
-                size: paginationConstants.itemsPerPage,
+                size: vm.itemsPerPage,
                 sort: sort()
             }, onSuccess, onError);
             function sort() {
@@ -34,7 +35,7 @@
                 vm.links = ParseLinks.parse(headers('link'));
                 vm.totalItems = headers('X-Total-Count');
                 vm.queryCount = vm.totalItems;
-                vm.devices = data;
+                vm.people = data;
                 vm.page = pagingParams.page;
             }
             function onError(error) {
@@ -46,17 +47,6 @@
             vm.page = page;
             vm.transition();
         }
-
-        vm.importFromTraccar = function() {
-            Traccar.importDevices(onSuccess, onError);
-            function onSuccess(data, headers) {
-                AlertService.success(data);
-                loadAll();
-            }
-            function onError(error) {
-                AlertService.error(error.data.message);
-            }
-        };
 
         function transition () {
             $state.transitionTo($state.$current, {

@@ -2,7 +2,7 @@
     'use strict';
     angular
         .module('fleetApp')
-        .factory('Traccar', Device);
+        .factory('Traccar', Traccar);
 
     Traccar.$inject = ['$resource', 'DateUtils'];
 

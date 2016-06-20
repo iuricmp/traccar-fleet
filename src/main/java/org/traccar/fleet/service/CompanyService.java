@@ -24,16 +24,16 @@ import java.util.stream.Collectors;
 public class CompanyService {
 
     private final Logger log = LoggerFactory.getLogger(CompanyService.class);
-    
+
     @Inject
     private CompanyRepository companyRepository;
-    
+
     @Inject
     private CompanyMapper companyMapper;
-    
+
     /**
      * Save a company.
-     * 
+     *
      * @param companyDTO the entity to save
      * @return the persisted entity
      */
@@ -47,14 +47,14 @@ public class CompanyService {
 
     /**
      *  Get all the companies.
-     *  
+     *
      *  @param pageable the pagination information
      *  @return the list of entities
      */
-    @Transactional(readOnly = true) 
+    @Transactional(readOnly = true)
     public Page<Company> findAll(Pageable pageable) {
         log.debug("Request to get all Companies");
-        Page<Company> result = companyRepository.findAll(pageable); 
+        Page<Company> result = companyRepository.findAll(pageable);
         return result;
     }
 
@@ -64,7 +64,7 @@ public class CompanyService {
      *  @param id the id of the entity
      *  @return the entity
      */
-    @Transactional(readOnly = true) 
+    @Transactional(readOnly = true)
     public CompanyDTO findOne(Long id) {
         log.debug("Request to get Company : {}", id);
         Company company = companyRepository.findOne(id);
@@ -74,11 +74,21 @@ public class CompanyService {
 
     /**
      *  Delete the  company by id.
-     *  
+     *
      *  @param id the id of the entity
      */
     public void delete(Long id) {
         log.debug("Request to delete Company : {}", id);
         companyRepository.delete(id);
+    }
+
+    @Transactional(readOnly = true)
+    public Company findOneById(Long id) {
+        return companyRepository.findOne(id);
+    }
+
+    @Transactional(readOnly = true)
+    public Company findFirstByDomain(String domain) {
+        return companyRepository.findFirstByDomain(domain);
     }
 }

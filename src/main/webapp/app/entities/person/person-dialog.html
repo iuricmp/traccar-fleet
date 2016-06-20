@@ -1,0 +1,115 @@
+
+<form name="editForm" role="form" novalidate ng-submit="vm.save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myPersonLabel" translate="fleetApp.person.home.createOrEditLabel">Create or edit a Person</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" ng-show="vm.person.id">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="vm.person.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="fleetApp.person.personType" for="field_personType">Person Type</label>
+            <select class="form-control" name="personType" ng-model="vm.person.personType" id="field_personType" required>
+                <option value="COMPANY" translate="fleetApp.PersonType.COMPANY">COMPANY</option>
+                <option value="INDIVIDUAL" translate="fleetApp.PersonType.INDIVIDUAL">INDIVIDUAL</option>
+            </select>
+            <div ng-show="editForm.personType.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.personType.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="fleetApp.person.federalId" for="field_federalId">Federal Id</label>
+            <input type="text" class="form-control" name="federalId" id="field_federalId"
+                    ng-model="vm.person.federalId"
+                    required ng-maxlength="14" />
+            <div ng-show="editForm.federalId.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.federalId.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.federalId.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="14">
+                    This field cannot be longer than 14 characters.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="fleetApp.person.name" for="field_name">Name</label>
+            <input type="text" class="form-control" name="name" id="field_name"
+                    ng-model="vm.person.name"
+                    ng-maxlength="200" />
+            <div ng-show="editForm.name.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.name.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="200">
+                    This field cannot be longer than 200 characters.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="fleetApp.person.tradeName" for="field_tradeName">Trade Name</label>
+            <input type="text" class="form-control" name="tradeName" id="field_tradeName"
+                    ng-model="vm.person.tradeName"
+                    ng-maxlength="100" />
+            <div ng-show="editForm.tradeName.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.tradeName.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="100">
+                    This field cannot be longer than 100 characters.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="fleetApp.person.email" for="field_email">Email</label>
+            <input type="text" class="form-control" name="email" id="field_email"
+                    ng-model="vm.person.email"
+                    ng-maxlength="100" />
+            <div ng-show="editForm.email.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.email.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="100">
+                    This field cannot be longer than 100 characters.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="fleetApp.person.alfaId" for="field_alfaId">Alfa Id</label>
+            <input type="text" class="form-control" name="alfaId" id="field_alfaId"
+                    ng-model="vm.person.alfaId"
+                    ng-maxlength="20" />
+            <div ng-show="editForm.alfaId.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.alfaId.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="20">
+                    This field cannot be longer than 20 characters.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="fleetApp.person.externalId" for="field_externalId">External Id</label>
+            <input type="number" class="form-control" name="externalId" id="field_externalId"
+                    ng-model="vm.person.externalId"
+                     />
+        </div>
+
+        <div class="form-group">
+            <label translate="fleetApp.person.company" for="field_company">Company</label>
+            <select class="form-control" id="field_company" name="company" ng-model="vm.person.companyId" ng-options="company.id as company.name for company in vm.companies"            >
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

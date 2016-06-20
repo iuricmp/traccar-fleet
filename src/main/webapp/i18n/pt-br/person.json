@@ -1,0 +1,29 @@
+{
+    "fleetApp": {
+        "person" : {
+            "home": {
+                "title": "People",
+                "createLabel": "Criar novo Person",
+                "createOrEditLabel": "Criar ou editar Person",
+                "search": "Pesquisar por Person"
+            },
+            "created": "Um novo Person é criado com o identificador {{ param }}",
+            "updated": "Um Person é atualizado com o identificador {{ param }}",
+            "deleted": "Um Person é deletado com o identificador {{ param }}",
+            "delete": {
+                "question": "Tem certeza de que deseja excluir Person {{ id }}?"
+            },
+            "detail": {
+                "title": "Person"
+            },
+            "personType": "Person Type",
+            "federalId": "Federal Id",
+            "name": "Name",
+            "tradeName": "Trade Name",
+            "email": "Email",
+            "alfaId": "Alfa Id",
+            "externalId": "External Id",
+            "company": "Company"
+        }
+    }
+}

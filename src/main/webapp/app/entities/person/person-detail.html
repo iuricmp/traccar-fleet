@@ -1,0 +1,46 @@
+
+<div>
+    <h2><span translate="fleetApp.person.detail.title">Person</span> {{vm.person.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span translate="fleetApp.person.personType">Person Type</span></dt>
+        <dd>
+            <span translate="{{'fleetApp.PersonType.' + vm.person.personType}}">{{vm.person.personType}}</span>
+        </dd>
+        <dt><span translate="fleetApp.person.federalId">Federal Id</span></dt>
+        <dd>
+            <span>{{vm.person.federalId}}</span>
+        </dd>
+        <dt><span translate="fleetApp.person.name">Name</span></dt>
+        <dd>
+            <span>{{vm.person.name}}</span>
+        </dd>
+        <dt><span translate="fleetApp.person.tradeName">Trade Name</span></dt>
+        <dd>
+            <span>{{vm.person.tradeName}}</span>
+        </dd>
+        <dt><span translate="fleetApp.person.email">Email</span></dt>
+        <dd>
+            <span>{{vm.person.email}}</span>
+        </dd>
+        <dt><span translate="fleetApp.person.alfaId">Alfa Id</span></dt>
+        <dd>
+            <span>{{vm.person.alfaId}}</span>
+        </dd>
+        <dt><span translate="fleetApp.person.externalId">External Id</span></dt>
+        <dd>
+            <span>{{vm.person.externalId}}</span>
+        </dd>
+        <dt><span translate="fleetApp.person.company">Company</span></dt>
+        <dd>
+            <a ui-sref="company-detail({id:vm.person.companyId})">{{vm.person.companyName}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            onclick="window.history.back()"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+</div>

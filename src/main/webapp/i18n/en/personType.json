@@ -1,0 +1,9 @@
+{
+    "fleetApp": {
+        "PersonType" : {
+            "null": "",
+            "COMPANY": "COMPANY",
+            "INDIVIDUAL": "INDIVIDUAL"
+        }
+    }
+}

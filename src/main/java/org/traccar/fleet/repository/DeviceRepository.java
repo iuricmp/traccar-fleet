@@ -12,4 +12,5 @@ import java.util.List;
 @SuppressWarnings("unused")
 public interface DeviceRepository extends JpaRepository<Device,Long> {
 
+    Device findOneByUniqueId(String uniqueId);
 }
