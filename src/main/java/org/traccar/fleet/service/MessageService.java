@@ -47,8 +47,10 @@ public class MessageService {
         log.debug("Request to save Message : {}", messageDTO);
         Message message = messageMapper.messageDTOToMessage(messageDTO);
         Device  device  = message.getDevice();
-        if (device.getId() == null && isNotBlank(device.getUniqueId())) {
-            message.setDevice(deviceService.findOneByUniqueId(device.getUniqueId()));
+        if (messageDTO.getDeviceId() != null) {
+            message.setDevice(new Device(messageDTO.getDeviceId()));
+        } else if (isNotBlank(messageDTO.getDeviceUniqueId())) {
+            message.setDevice(deviceService.findOneByUniqueId(messageDTO.getDeviceUniqueId()));
         }
         message = messageRepository.save(message);
         MessageDTO result = messageMapper.messageToMessageDTO(message);

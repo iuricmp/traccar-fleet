@@ -48,6 +48,14 @@ public class Device implements Serializable {
     @NotNull
     private Company company;
 
+    public Device(Long id) {
+        this.id = id;
+    }
+
+    public Device() {
+
+    }
+
     public Long getId() {
         return id;
     }

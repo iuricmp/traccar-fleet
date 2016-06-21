@@ -20,8 +20,7 @@ public interface MessageMapper {
 
     List<MessageDTO> messagesToMessageDTOs(List<Message> messages);
 
-//    @Mapping(source = "deviceId", target = "device")
-    @Mapping(source = "deviceUniqueId", target = "device")
+    @Mapping(source = "deviceId", target = "device")
     Message messageDTOToMessage(MessageDTO messageDTO);
 
     List<Message> messageDTOsToMessages(List<MessageDTO> messageDTOs);
@@ -32,15 +31,6 @@ public interface MessageMapper {
         }
         Device device = new Device();
         device.setId(id);
-        return device;
-    }
-
-    default Device deviceFromUniqueId(String deviceUniqueId) {
-        if (StringUtils.isBlank(deviceUniqueId)) {
-            return null;
-        }
-        Device device = new Device();
-        device.setUniqueId(deviceUniqueId);
         return device;
     }
 }
