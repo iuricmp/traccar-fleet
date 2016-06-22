@@ -9,12 +9,18 @@
 
     function MessageController ($scope, $state, Message, ParseLinks, AlertService, pagingParams, paginationConstants) {
         var vm = this;
-        
+
         vm.loadPage = loadPage;
         vm.predicate = pagingParams.predicate;
         vm.reverse = pagingParams.ascending;
         vm.transition = transition;
+        vm.loadAll = loadAll;
         vm.itemsPerPage = paginationConstants.itemsPerPage;
+        vm.message = {};
+
+        vm.datePickerOpenStatus = {};
+        vm.datePickerOpenStatus.messageTime = false;
+        vm.openCalendar = openCalendar;
 
         loadAll();
 
@@ -22,7 +28,8 @@
             Message.query({
                 page: pagingParams.page - 1,
                 size: vm.itemsPerPage,
-                sort: sort()
+                sort: sort(),
+                messageDTO: {'text': 'temp'}
             }, onSuccess, onError);
             function sort() {
                 var result = [vm.predicate + ',' + (vm.reverse ? 'asc' : 'desc')];
@@ -55,5 +62,10 @@
                 search: vm.currentSearch
             });
         }
+
+        function openCalendar (date) {
+            vm.datePickerOpenStatus[date] = true;
+        }
+
     }
 })();

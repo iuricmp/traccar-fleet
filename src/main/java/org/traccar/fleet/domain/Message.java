@@ -31,8 +31,8 @@ public class Message implements Serializable {
     private Integer macroNumber;
 
     @Size(max = 4000)
-    @Column(name = "macro_text", length = 4000)
-    private String macroText;
+    @Column(name = "message_text", length = 4000)
+    private String text;
 
     @ManyToOne
     @NotNull
@@ -62,12 +62,12 @@ public class Message implements Serializable {
         this.macroNumber = macroNumber;
     }
 
-    public String getMacroText() {
-        return macroText;
+    public String getText() {
+        return text;
     }
 
-    public void setMacroText(String macroText) {
-        this.macroText = macroText;
+    public void setText(String text) {
+        this.text = text;
     }
 
     public Device getDevice() {
@@ -104,7 +104,7 @@ public class Message implements Serializable {
             "id=" + id +
             ", messageTime='" + messageTime + "'" +
             ", macroNumber='" + macroNumber + "'" +
-            ", macroText='" + macroText + "'" +
+            ", text='" + text + "'" +
             '}';
     }
 }

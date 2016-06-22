@@ -35,13 +35,13 @@ import java.util.stream.Collectors;
 public class MessageResource {
 
     private final Logger log = LoggerFactory.getLogger(MessageResource.class);
-        
+
     @Inject
     private MessageService messageService;
-    
+
     @Inject
     private MessageMapper messageMapper;
-    
+
     /**
      * POST  /messages : Create a new message.
      *
@@ -96,13 +96,13 @@ public class MessageResource {
      * @throws URISyntaxException if there is an error to generate the pagination HTTP headers
      */
     @RequestMapping(value = "/messages",
-        method = RequestMethod.GET,
+        method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<List<MessageDTO>> getAllMessages(Pageable pageable)
+    public ResponseEntity<List<MessageDTO>> getAllMessages(Pageable pageable, MessageDTO messageDTO)
         throws URISyntaxException {
         log.debug("REST request to get a page of Messages");
-        Page<Message> page = messageService.findAll(pageable); 
+        Page<Message> page = messageService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/messages");
         return new ResponseEntity<>(messageMapper.messagesToMessageDTOs(page.getContent()), headers, HttpStatus.OK);
     }
