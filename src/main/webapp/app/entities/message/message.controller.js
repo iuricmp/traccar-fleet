@@ -5,24 +5,30 @@
         .module('fleetApp')
         .controller('MessageController', MessageController);
 
-    MessageController.$inject = ['$scope', '$state', 'Message', 'ParseLinks', 'AlertService', 'pagingParams', 'paginationConstants'];
+    MessageController.$inject = ['$filter','$scope', '$state', 'Message', 'ParseLinks', 'AlertService', 'pagingParams', 'paginationConstants'];
 
-    function MessageController ($scope, $state, Message, ParseLinks, AlertService, pagingParams, paginationConstants) {
+    function MessageController ($filter, $scope, $state, Message, ParseLinks, AlertService, pagingParams, paginationConstants) {
         var vm = this;
-        
+
         vm.loadPage = loadPage;
         vm.predicate = pagingParams.predicate;
         vm.reverse = pagingParams.ascending;
         vm.transition = transition;
+        vm.loadAll = loadAll;
         vm.itemsPerPage = paginationConstants.itemsPerPage;
+
+        vm.fromDate = new Date();
 
         loadAll();
 
         function loadAll () {
+            var dateFormat = 'yyyy-MM-dd';
+            var fromDate = $filter('date')(vm.fromDate, dateFormat);
             Message.query({
                 page: pagingParams.page - 1,
                 size: vm.itemsPerPage,
-                sort: sort()
+                sort: sort(),
+                fromDate: fromDate
             }, onSuccess, onError);
             function sort() {
                 var result = [vm.predicate + ',' + (vm.reverse ? 'asc' : 'desc')];
@@ -55,5 +61,6 @@
                 search: vm.currentSearch
             });
         }
+
     }
 })();

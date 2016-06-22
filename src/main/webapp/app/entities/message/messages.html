@@ -2,12 +2,31 @@
     <h2 translate="fleetApp.message.home.title">Messages</h2>
     <jhi-alert></jhi-alert>
     <div class="container-fluid">
+
         <div class="row">
-            <div class="col-xs-4 no-padding-left">
+            <div class="col-md-5">
+                <h4 translate="fleetApp.message.filter.title">Filter by date</h4>
+                <p class="input-group">
+                    <span class="input-group-addon" translate="fleetApp.message.filter.from">from</span>
+                    <input type="date" class="input-sm form-control" name="start" ng-model="vm.fromDate" ng-change="vm.loadAll()" required/>
+                </p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-4">
                 <button class="btn btn-primary" ui-sref="message.new" >
                     <span class="glyphicon glyphicon-plus"></span>
                     <span  translate="fleetApp.message.home.createLabel">
                         Create new Message
+                    </span>
+                </button>
+            </div>
+            <div class="col-xs-2">
+                <button class="btn btn-primary" ng-click="vm.loadAll()" >
+                    <span class="glyphicon glyphicon-search"></span>
+                    <span  translate="entity.action.search">
+                        Search
                     </span>
                 </button>
             </div>
@@ -21,7 +40,7 @@
                     <th jh-sort-by="id"><span translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="messageTime"><span translate="fleetApp.message.messageTime">Message Time</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="macroNumber"><span translate="fleetApp.message.macroNumber">Macro Number</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="macroText"><span translate="fleetApp.message.macroText">Macro Text</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="text"><span translate="fleetApp.message.text">Macro Text</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="deviceName"><span translate="fleetApp.message.device">Device</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
                 </tr>
@@ -31,7 +50,7 @@
                     <td><a ui-sref="message-detail({id:message.id})">{{message.id}}</a></td>
                     <td>{{message.messageTime | date:'medium'}}</td>
                     <td>{{message.macroNumber}}</td>
-                    <td>{{message.macroText}}</td>
+                    <td>{{message.text}}</td>
                     <td>
                         <a ui-sref="device-detail({id:message.deviceId})">{{message.deviceName}}</a>
                     </td>

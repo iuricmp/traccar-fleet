@@ -21,7 +21,7 @@ public class MessageDTO implements Serializable {
     private Integer macroNumber;
 
     @Size(max = 4000)
-    private String macroText;
+    private String text;
 
     private Long deviceId;
 
@@ -50,12 +50,13 @@ public class MessageDTO implements Serializable {
     public void setMacroNumber(Integer macroNumber) {
         this.macroNumber = macroNumber;
     }
-    public String getMacroText() {
-        return macroText;
+
+    public String getText() {
+        return text;
     }
 
-    public void setMacroText(String macroText) {
-        this.macroText = macroText;
+    public void setText(String text) {
+        this.text = text;
     }
 
     public Long getDeviceId() {
@@ -109,7 +110,7 @@ public class MessageDTO implements Serializable {
             "id=" + id +
             ", messageTime='" + messageTime + "'" +
             ", macroNumber='" + macroNumber + "'" +
-            ", macroText='" + macroText + "'" +
+            ", text='" + text + "'" +
             '}';
     }
 }

@@ -68,7 +68,7 @@ class MessageGatlingTest extends Simulation {
             .exec(http("Create new message")
             .post("/api/messages")
             .headers(headers_http_authenticated)
-            .body(StringBody("""{"id":null, "messageTime":"2020-01-01T00:00:00.000Z", "macroNumber":"0", "macroText":"SAMPLE_TEXT"}""")).asJSON
+            .body(StringBody("""{"id":null, "messageTime":"2020-01-01T00:00:00.000Z", "macroNumber":"0", "text":"SAMPLE_TEXT"}""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_message_url"))).exitHereIfFailed
             .pause(10)

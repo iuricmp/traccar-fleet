@@ -96,7 +96,7 @@ public class MessageResourceIntTest extends FleetResourceIntTest {
         message = new Message();
         message.setMessageTime(DEFAULT_MESSAGE_TIME);
         message.setMacroNumber(DEFAULT_MACRO_NUMBER);
-        message.setMacroText(DEFAULT_MACRO_TEXT);
+        message.setText(DEFAULT_MACRO_TEXT);
 
         device = initDevice();
         message.setDevice(device);
@@ -121,7 +121,7 @@ public class MessageResourceIntTest extends FleetResourceIntTest {
         Message testMessage = messages.get(messages.size() - 1);
         assertThat(testMessage.getMessageTime()).isEqualTo(DEFAULT_MESSAGE_TIME);
         assertThat(testMessage.getMacroNumber()).isEqualTo(DEFAULT_MACRO_NUMBER);
-        assertThat(testMessage.getMacroText()).isEqualTo(DEFAULT_MACRO_TEXT);
+        assertThat(testMessage.getText()).isEqualTo(DEFAULT_MACRO_TEXT);
     }
 
     @Test
@@ -156,7 +156,7 @@ public class MessageResourceIntTest extends FleetResourceIntTest {
                 .andExpect(jsonPath("$.[*].id").value(hasItem(message.getId().intValue())))
                 .andExpect(jsonPath("$.[*].messageTime").value(hasItem(DEFAULT_MESSAGE_TIME_STR)))
                 .andExpect(jsonPath("$.[*].macroNumber").value(hasItem(DEFAULT_MACRO_NUMBER)))
-                .andExpect(jsonPath("$.[*].macroText").value(hasItem(DEFAULT_MACRO_TEXT.toString())));
+                .andExpect(jsonPath("$.[*].text").value(hasItem(DEFAULT_MACRO_TEXT.toString())));
     }
 
     @Test
@@ -172,7 +172,7 @@ public class MessageResourceIntTest extends FleetResourceIntTest {
             .andExpect(jsonPath("$.id").value(message.getId().intValue()))
             .andExpect(jsonPath("$.messageTime").value(DEFAULT_MESSAGE_TIME_STR))
             .andExpect(jsonPath("$.macroNumber").value(DEFAULT_MACRO_NUMBER))
-            .andExpect(jsonPath("$.macroText").value(DEFAULT_MACRO_TEXT.toString()));
+            .andExpect(jsonPath("$.text").value(DEFAULT_MACRO_TEXT.toString()));
     }
 
     @Test
@@ -195,7 +195,7 @@ public class MessageResourceIntTest extends FleetResourceIntTest {
         updatedMessage.setId(message.getId());
         updatedMessage.setMessageTime(UPDATED_MESSAGE_TIME);
         updatedMessage.setMacroNumber(UPDATED_MACRO_NUMBER);
-        updatedMessage.setMacroText(UPDATED_MACRO_TEXT);
+        updatedMessage.setText(UPDATED_MACRO_TEXT);
         updatedMessage.setDevice(device);
         MessageDTO messageDTO = messageMapper.messageToMessageDTO(updatedMessage);
 
@@ -210,7 +210,7 @@ public class MessageResourceIntTest extends FleetResourceIntTest {
         Message testMessage = messages.get(messages.size() - 1);
         assertThat(testMessage.getMessageTime()).isEqualTo(UPDATED_MESSAGE_TIME);
         assertThat(testMessage.getMacroNumber()).isEqualTo(UPDATED_MACRO_NUMBER);
-        assertThat(testMessage.getMacroText()).isEqualTo(UPDATED_MACRO_TEXT);
+        assertThat(testMessage.getText()).isEqualTo(UPDATED_MACRO_TEXT);
     }
 
     @Test

@@ -23,7 +23,7 @@
             "fieldType": "Integer"
         },
         {
-            "fieldName": "macroText",
+            "fieldName": "text",
             "fieldType": "String",
             "fieldValidateRules": [
                 "maxlength"

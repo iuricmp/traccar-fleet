@@ -40,13 +40,13 @@
                      />
         </div>
         <div class="form-group">
-            <label class="control-label" translate="fleetApp.message.macroText" for="field_macroText">Macro Text</label>
-            <input type="text" class="form-control" name="macroText" id="field_macroText"
-                    ng-model="vm.message.macroText"
+            <label class="control-label" translate="fleetApp.message.text" for="field_text">Macro Text</label>
+            <input type="text" class="form-control" name="text" id="field_text"
+                    ng-model="vm.message.text"
                     ng-maxlength="4000" />
-            <div ng-show="editForm.macroText.$invalid">
+            <div ng-show="editForm.text.$invalid">
                 <p class="help-block"
-                    ng-show="editForm.macroText.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="4000">
+                    ng-show="editForm.text.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="4000">
                     This field cannot be longer than 4000 characters.
                 </p>
             </div>

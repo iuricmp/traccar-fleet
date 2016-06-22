@@ -93,7 +93,8 @@
             "edit": "Editar",
             "open": "Open",
             "save": "Salvar",
-            "view": "Visualizar"
+            "view": "Visualizar",
+            "search": "Pesquisar"
         },
         "detail": {
             "field": "Campo",

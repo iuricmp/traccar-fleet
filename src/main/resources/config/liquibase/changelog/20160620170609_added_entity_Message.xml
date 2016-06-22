@@ -24,15 +24,15 @@
             <column name="message_time" type="timestamp">
                 <constraints nullable="false" />
             </column>
-            
+
             <column name="macro_number" type="integer">
                 <constraints nullable="true" />
             </column>
-            
-            <column name="macro_text" type="varchar(4000)">
+
+            <column name="message_text" type="varchar(4000)">
                 <constraints nullable="true" />
             </column>
-            
+
             <column name="device_id" type="bigint">
                 <constraints nullable="false" />
             </column>
@@ -40,6 +40,6 @@
             <!-- jhipster-needle-liquibase-add-column - Jhipster will add columns here, do not remove-->
         </createTable>
         <dropDefaultValue tableName="message" columnName="message_time" columnDataType="datetime"/>
-        
+
     </changeSet>
 </databaseChangeLog>
