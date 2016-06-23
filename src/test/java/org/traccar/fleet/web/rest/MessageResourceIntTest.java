@@ -150,7 +150,7 @@ public class MessageResourceIntTest extends FleetResourceIntTest {
         messageRepository.saveAndFlush(message);
 
         // Get all the messages
-        restMessageMockMvc.perform(get("/api/messages?sort=id,desc"))
+        restMessageMockMvc.perform(get("/api/messages?sort=id,desc&fromDate="))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.[*].id").value(hasItem(message.getId().intValue())))

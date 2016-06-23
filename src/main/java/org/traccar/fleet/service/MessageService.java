@@ -1,22 +1,21 @@
 package org.traccar.fleet.service;
 
-import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.traccar.fleet.domain.Device;
 import org.traccar.fleet.domain.Message;
 import org.traccar.fleet.repository.MessageRepository;
 import org.traccar.fleet.web.rest.dto.MessageDTO;
 import org.traccar.fleet.web.rest.mapper.MessageMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.time.LocalDate;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
@@ -61,12 +60,19 @@ public class MessageService {
      *  Get all the messages.
      *
      *  @param pageable the pagination information
-     *  @return the list of entities
+     *  @param fromDate
+     * @return the list of entities
      */
     @Transactional(readOnly = true)
-    public Page<Message> findAll(Pageable pageable) {
+    public Page<Message> findAll(Pageable pageable, LocalDate fromDate) {
         log.debug("Request to get all Messages");
-        Page<Message> result = messageRepository.findAll(pageable);
+        Page<Message> result;
+        if (fromDate == null) {
+            result = messageRepository.findAll(pageable);
+        } else {
+            ZonedDateTime startOfDay = fromDate.atStartOfDay(ZoneOffset.UTC);
+            result = messageRepository.findAllByMessageTimeBetween(startOfDay, startOfDay.plusDays(1), pageable);
+        }
         return result;
     }
 

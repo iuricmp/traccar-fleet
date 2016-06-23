@@ -19,7 +19,18 @@
             "messageTime": "Message Time",
             "macroNumber": "Macro Number",
             "text": "Macro Text",
-            "device": "Device"
+            "device": "Device",
+            "filter": {
+                "title": "Filter per date",
+                "from": "from",
+                "to": "to",
+                "button": {
+                    "weeks": "Weeks",
+                    "today": "today",
+                    "clear": "clear",
+                    "close": "close"
+                }
+            }
         }
     }
 }

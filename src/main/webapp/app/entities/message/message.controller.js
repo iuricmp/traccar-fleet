@@ -5,9 +5,9 @@
         .module('fleetApp')
         .controller('MessageController', MessageController);
 
-    MessageController.$inject = ['$scope', '$state', 'Message', 'ParseLinks', 'AlertService', 'pagingParams', 'paginationConstants'];
+    MessageController.$inject = ['$filter','$scope', '$state', 'Message', 'ParseLinks', 'AlertService', 'pagingParams', 'paginationConstants'];
 
-    function MessageController ($scope, $state, Message, ParseLinks, AlertService, pagingParams, paginationConstants) {
+    function MessageController ($filter, $scope, $state, Message, ParseLinks, AlertService, pagingParams, paginationConstants) {
         var vm = this;
 
         vm.loadPage = loadPage;
@@ -16,20 +16,19 @@
         vm.transition = transition;
         vm.loadAll = loadAll;
         vm.itemsPerPage = paginationConstants.itemsPerPage;
-        vm.message = {};
 
-        vm.datePickerOpenStatus = {};
-        vm.datePickerOpenStatus.messageTime = false;
-        vm.openCalendar = openCalendar;
+        vm.fromDate = new Date();
 
         loadAll();
 
         function loadAll () {
+            var dateFormat = 'yyyy-MM-dd';
+            var fromDate = $filter('date')(vm.fromDate, dateFormat);
             Message.query({
                 page: pagingParams.page - 1,
                 size: vm.itemsPerPage,
                 sort: sort(),
-                messageDTO: {'text': 'temp'}
+                fromDate: fromDate
             }, onSuccess, onError);
             function sort() {
                 var result = [vm.predicate + ',' + (vm.reverse ? 'asc' : 'desc')];
@@ -61,10 +60,6 @@
                 sort: vm.predicate + ',' + (vm.reverse ? 'asc' : 'desc'),
                 search: vm.currentSearch
             });
-        }
-
-        function openCalendar (date) {
-            vm.datePickerOpenStatus[date] = true;
         }
 
     }

@@ -1,31 +1,30 @@
 package org.traccar.fleet.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-import org.traccar.fleet.domain.Message;
-import org.traccar.fleet.service.MessageService;
-import org.traccar.fleet.web.rest.util.HeaderUtil;
-import org.traccar.fleet.web.rest.util.PaginationUtil;
-import org.traccar.fleet.web.rest.dto.MessageDTO;
-import org.traccar.fleet.web.rest.mapper.MessageMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import org.traccar.fleet.domain.Message;
+import org.traccar.fleet.service.MessageService;
+import org.traccar.fleet.web.rest.dto.MessageDTO;
+import org.traccar.fleet.web.rest.mapper.MessageMapper;
+import org.traccar.fleet.web.rest.util.HeaderUtil;
+import org.traccar.fleet.web.rest.util.PaginationUtil;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.LinkedList;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * REST controller for managing Message.
@@ -96,13 +95,14 @@ public class MessageResource {
      * @throws URISyntaxException if there is an error to generate the pagination HTTP headers
      */
     @RequestMapping(value = "/messages",
-        method = RequestMethod.POST,
+        method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<List<MessageDTO>> getAllMessages(Pageable pageable, MessageDTO messageDTO)
+    public ResponseEntity<List<MessageDTO>> getAllMessages(Pageable pageable,
+        @RequestParam(value = "fromDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fromDate)
         throws URISyntaxException {
         log.debug("REST request to get a page of Messages");
-        Page<Message> page = messageService.findAll(pageable);
+        Page<Message> page = messageService.findAll(pageable, fromDate);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/messages");
         return new ResponseEntity<>(messageMapper.messagesToMessageDTOs(page.getContent()), headers, HttpStatus.OK);
     }

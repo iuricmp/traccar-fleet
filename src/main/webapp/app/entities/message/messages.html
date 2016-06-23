@@ -2,30 +2,17 @@
     <h2 translate="fleetApp.message.home.title">Messages</h2>
     <jhi-alert></jhi-alert>
     <div class="container-fluid">
+
         <div class="row">
-            <div class="col-xs-4 no-padding-left">
-                <div class="form-group">
-                    <label class="control-label" translate="fleetApp.message.messageTime" for="field_messageTime">Message Time</label>
-                    <div class="input-group">
-                        <input id="field_messageTime" type="text" class="form-control" name="messageTime" datetime-picker="{{dateformat}}" ng-model="vm.message.messageTime" is-open="vm.datePickerOpenStatus.messageTime"
-                               required  />
-                            <span class="input-group-btn">
-                                <button type="button" class="btn btn-default" ng-click="vm.openCalendar('messageTime')"><i class="glyphicon glyphicon-calendar"></i></button>
-                            </span>
-                    </div>
-                    <div ng-show="editForm.messageTime.$invalid">
-                        <p class="help-block"
-                           ng-show="editForm.messageTime.$error.required" translate="entity.validation.required">
-                            This field is required.
-                        </p>
-                        <p class="help-block"
-                           ng-show="editForm.messageTime.$error.ZonedDateTimelocal" translate="entity.validation.ZonedDateTimelocal">
-                            This field should be a date and time.
-                        </p>
-                    </div>
-                </div>
+            <div class="col-md-5">
+                <h4 translate="fleetApp.message.filter.title">Filter by date</h4>
+                <p class="input-group">
+                    <span class="input-group-addon" translate="fleetApp.message.filter.from">from</span>
+                    <input type="date" class="input-sm form-control" name="start" ng-model="vm.fromDate" ng-change="vm.loadAll()" required/>
+                </p>
             </div>
         </div>
+
         <div class="row">
             <div class="col-xs-4">
                 <button class="btn btn-primary" ui-sref="message.new" >
